@@ -32,6 +32,7 @@ function add_conditional_fields_as_line_items( $order_id ){
 	}
 
 	if ( $data ){
+		$data['id']	= $order_id;
 		$jsondata	= json_encode( $data );
 
 		$headers	= array();
