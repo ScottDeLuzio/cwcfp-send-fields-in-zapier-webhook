@@ -15,18 +15,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_action( 'woocommerce_checkout_update_order_meta', 'add_conditional_fields_as_line_items' );
 
 function add_conditional_fields_as_line_items( $order_id ){
-	$field_count 	= get_option('pro_conditional_fields_qty');
-	$conditional_a 	= 1;
-	$data			= false;
+	global $wpdb, $cwcfp_db_table;
+	$fields	= $wpdb->get_results("SELECT * FROM " . $cwcfp_db_table . " ORDER BY id;");
 
-	for ( $conditional_a; $conditional_a <= $field_count; $conditional_a++ ) {
-		$quantity = cwcfp_get_field_quantity( $conditional_a );
+	foreach( $fields as $field ){
+		$id			= esc_html( $field->id );
+		$quantity	= cwcfp_get_field_quantity( $id );
 		for( $i = 1; $i <= $quantity; $i++ ){
-			if ( isset( $_POST[ 'conditional_field_'. $conditional_a . '-' . $i ] ) && '' != trim( $_POST[ 'conditional_field_' . $conditional_a . '-' . $i ] ) ) {
-
-				$field_title		= get_option( 'pro_conditional_fields_title_' . $conditional_a );
-
-				$data[$field_title]	= sanitize_text_field( $_POST[ 'conditional_field_' . $conditional_a . '-' . $i ] );
+			if ( isset( $_POST[ 'conditional_field_'. $id . '-' . $i ] ) && '' != trim( $_POST[ 'conditional_field_' . $id . '-' . $i ] ) ) {
+				$field_title		= esc_html( $field->field_title );
+				$data[$field_title]	= sanitize_text_field( $_POST['conditoinal_field_' . $id . '-' . $i] );
 			}
 		}
 	}
