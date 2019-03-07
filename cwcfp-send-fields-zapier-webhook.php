@@ -3,7 +3,7 @@
   	Plugin Name: CWCFP Send Fields In Zapier Webhook
   	Plugin URI: https://conditionalcheckoutfields.com/
   	Description: Add conditional fields as line items after checkout
-   	Version: 1.0.0
+   	Version: 2.0.0
   	Author: Scott DeLuzio
   	Author URI: https://scottdeluzio.com
 	  */
